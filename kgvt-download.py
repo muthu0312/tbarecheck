@@ -31,6 +31,7 @@ while True:
     if new_files != original_files:
         # get the downloaded xlsx files
         downloaded_files = [f for f in new_files - original_files if f.endswith('.xlsx')]
+        failed_files = [f for f in new_files - original_files if not f.endswith('.crdownload') and f not in downloaded_files]
         break
     # wait for 5 seconds before checking again
     time.sleep(5)
@@ -60,3 +61,8 @@ for file in copied_files:
     num_files_moved += 1
 
 print(f"Moved {num_files_moved} files to {today_folder}")
+
+if failed_files:
+    print(f"The following files failed to download: {failed_files}")
+else:
+    print("All files downloaded successfully.")
